@@ -12,7 +12,7 @@ pipeline {
             steps {
                 // Build Docker image using Dockerfile
                 script {
-                    def dockerImage = docker.build('nginx:latest', -f C:\\Users\\RachanaRao\\micro\\Dockerfile .)
+                    def dockerImage = docker.build('nginx:latest', -f 'C:\\Users\\RachanaRao\\micro\\Dockerfile' .)
                     //dockerImage.push()  // Optionally push the image to a registry
                 }
             }
