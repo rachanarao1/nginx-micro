@@ -1,7 +1,7 @@
-pipeline {
-    agent any
+// pipeline {
+//     agent any
 
-    stages {
+//     stages {
         // //stage('Checkout') {
         // //     steps {
         // //         // Checkout code from Git
@@ -51,4 +51,4 @@ pipeline {
     }
 }
 
-}
+
