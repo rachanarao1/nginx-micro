@@ -12,7 +12,7 @@ pipeline {
             steps {
                 // Build Docker image using Dockerfile
                 script {
-                    def dockerImage = docker.build('nginx:latest', '-f https://github.com/rachanarao1/nginx-micro/blob/main/Dockerfile .')
+                    def dockerImage = docker.build('nginx:latest', '-f https://github.com/rachanarao1/nginx-micro.git.')
                     //dockerImage.push()  // Optionally push the image to a registry
                 }
             }
