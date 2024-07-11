@@ -2,12 +2,12 @@ pipeline {
     agent any
 
     stages {
-        stage('Checkout') {
-            steps {
-                // Checkout code from Git
-                git 'https://github.com/rachanarao1/nginx-micro.git'
-            }
-        }
+        //stage('Checkout') {
+        //     steps {
+        //         // Checkout code from Git
+        //         git 'https://github.com/rachanarao1/nginx-micro.git'
+        //     }
+        // }
         stage('Build Docker Image') {
             steps {
                 // Build Docker image using Dockerfile
