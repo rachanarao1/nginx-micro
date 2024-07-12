@@ -1,57 +1,37 @@
 pipeline {
     agent any
-
+ 
+    environment {
+        // Define environment variables if needed
+        DOCKERFILE_PATH = 'C:\\Users\\RachanaRao\\micro\\Dockerfile' // Update this with your Dockerfile path
+        DOCKER_IMAGE_TAG = 'py:latest' // Update with your desired image name and tag
+    }
+ 
     stages {
-        //stage('Checkout') {
+        // stage('Checkout') {
         //     steps {
-        //         // Checkout code from Git
-        //         git 'https://github.com/rachanarao1/nginx-micro.git'
+        //         // Checkout the code from Git
+        //         git 'https://github.com/raksha-shenoy/new-demo-jenkins.git'
         //     }
         // }
         stage('Build Docker Image') {
             steps {
-                // Build Docker image using Dockerfile
                 script {
-                    def dockerImage = docker.build('nginx:latest', -f 'C:\\Users\\RachanaRao\\micro\\Dockerfile' .)
-                    //dockerImage.push()  // Optionally push the image to a registry
+                    // Build Docker image using Docker Pipeline plugin
+                    docker.build("${DOCKER_IMAGE_TAG}", "-f ${DOCKERFILE_PATH} .")
+                }
+            }
+        }
+        stage('Scan Docker Image') {
+            steps {
+                script {
+                    // Run Trivy scan on the Docker image
+                    docker.image("${DOCKER_IMAGE_TAG}").run("--entrypoint='' --no-progress --format json | tee trivy_report.json")
+                   
+                    // Archive Trivy scan report as artifact
+                    archiveArtifacts artifacts: 'trivy_report.json', allowEmptyArchive: true
                 }
             }
         }
     }
 }
-
-//         pipeline {
-//     agent any
-
-//     stages {
-//         stage('Checkout') {
-//             steps {
-//                 checkout scm
-//             }
-//         }
-        
-//         stage('Build Docker Image') {
-//             steps {
-//                 script {
-//                     def imageName = "nginx"
-//                     def imageTag = "latest"
-//                     def dockerfile = "Dockerfile"
-
-//                     // Build the Docker image
-//                     sh "docker build -t ${imageName}:${imageTag} -f ${dockerfile} ."
-//                 }
-//             }
-//         }
-//     }
-
-//     post {
-//         success {
-//             echo "Docker image built successfully!"
-//         }
-//         failure {
-//             echo "Docker image build failed."
-//         }
-//     }
-// }
-
-
