@@ -4,5 +4,5 @@ FROM python:3.8-slim
 # Set the working directory inside the container
 WORKDIR /MICRO
 
-
+COPY . /MICRO
 
