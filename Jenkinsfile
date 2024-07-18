@@ -3,31 +3,31 @@ pipeline {
  
     environment {
  
-        // SCANNER_HOME = tool 'sonar'
+        SCANNER_HOME = tool 'sonar'
        
         // DOCKERFILE_PATH = 'C:\\Users\\RakshaShenoy\\new-demo-jenkins\\Dockerfile' // Update this with your Dockerfile path
         // DOCKER_IMAGE_TAG = 'keer:latest' // Update with your desired image name and tag
         DOCKER_IMAGE_NAME = 'keer'
         // DOCKER_IMAGE_TAG = 'latest'
         REGISTRY_IMAGE = "docker.io/rachanaarao/keer:${BUILD_NUMBER}"
-        // SONAR_PROJECT_KEY = 'new-demo-jenkins'
+        SONAR_PROJECT_KEY = 'sonarr'
         // DOCKER_REGISTRY = 'https://hub.docker.com/r/rachanaarao/keer'
         registryCredential = 'dockerr_cred'
      
     }
  
     stages {
-        // stage('SonarQube Scan') {
-        //     steps {
-        //         script{
-        //             // def props = readProperties file: 'sonar-project.properties'
-        //             withSonarQubeEnv('sonar') {
-        //                 bat "${SCANNER_HOME}/bin/sonar-scanner -Dsonar.projectKey=${SONAR_PROJECT_KEY}"
+        stage('SonarQube Scan') {
+            steps {
+                script{
+                    // def props = readProperties file: 'sonar-project.properties'
+                    withSonarQubeEnv('sonar') {
+                        bat "${SCANNER_HOME}/bin/sonar-scanner -Dsonar.projectKey=${SONAR_PROJECT_KEY}"
  
-        //             }
-        //         }
-        //     }
-        // }
+                    }
+                }
+            }
+        }
         stage('Build Docker Image') {
             steps {
                 script {
