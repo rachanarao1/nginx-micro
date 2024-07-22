@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: micro
+spec:
+  selector:
+    matchLabels:
+      app: micro
+  replicas: 4
+  template:
+    metadata:
+      labels:
+        app: micro   
+    spec:
+      containers:
+      - name: micro
+        image: rachanaarao/keer:24
+        command: ['sh', '-c', 'echo Hello all && sleep 3600']
+        ports:
+        - containerPort: 9001
